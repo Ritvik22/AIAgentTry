@@ -6,6 +6,7 @@ interface GraphStore extends GraphState {
   addNode: (node: Omit<Node, 'id' | 'position' | 'cluster'>) => void;
   updateNode: (id: string, data: Partial<Node>) => void;
   deleteNode: (id: string) => void;
+  addEdge: (edge: Edge) => void;
   setThreshold: (value: number) => void;
   setClusterCount: (value: number) => void;
   toggleAutoLayout: () => void;
@@ -46,6 +47,10 @@ const useGraphStore = create<GraphStore>((set) => ({
   setClusterCount: (value) => set({ clusterCount: value }),
   toggleAutoLayout: () => set((state) => ({ isAutoLayout: !state.isAutoLayout })),
   setSelectedNode: (node) => set({ selectedNode: node }),
+
+  addEdge: (edge) => set((state) => ({
+    edges: [...state.edges, edge],
+  })),
 }));
 
 export default useGraphStore;
